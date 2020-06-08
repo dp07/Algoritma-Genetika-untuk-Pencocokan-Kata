@@ -150,7 +150,7 @@ function pushbutton1_Callback(hObject, eventdata, handles)
 target = get(handles.edit1, 'string');
 jumlah_populasi = str2double(get(handles.edit2, 'string'));
 mutation_rate = str2double(get(handles.edit3, 'string'));
-GA(target,jumlah_populasi,mutation_rate);
+%GA(target,jumlah_populasi,mutation_rate);
 population = create_population(target, jumlah_populasi);
 islooping = true;
 generation = 0;
@@ -158,8 +158,20 @@ while islooping
     % evaluation
     islooping = evaluation(population);
     % display
-    %logging(population,target,generation)
+     clc
     proses = selection(population);
+    fprintf('target : %s \n',target);
+    fprintf('proses : %s \n',proses.genes);
+    fprintf('\n')
+    fprintf('generation: %d \n', generation);
+    fprintf('\n');
+    
+    for i=1:length(population)
+        fprintf('genes: %s ',population(i).genes);
+        fprintf('Fitness: %.2f ',population(i).fitness);
+        fprintf('\n');
+    end
+    
     set(handles.text3, 'string', proses.genes);
     set(handles.text8, 'string', generation);
     for i=1:length(population)
@@ -179,4 +191,6 @@ while islooping
     children = [mutant1 mutant2];
     population = regeneration(children,population);
     generation = generation + 1;
-end
+end 
+%set(handles.text3, 'string', proses.genes);
+
